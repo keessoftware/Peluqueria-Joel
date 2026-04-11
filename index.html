@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barberia Joel Farias | Turnos y Cursos</title>
+<meta name="description" content="Turnos online y cursos de barbería en Barberia Joel Farias.">
+
+<style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#0f0f0f;color:white}
+header{display:flex;justify-content:space-between;padding:15px 30px;background:#000}
+.logo{color:#f5c542;font-weight:bold}
+header div:last-child{cursor:pointer}
+header div:last-child:hover{transform:scale(1.2)}
+
+.login{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#000,#1c1c1c)}
+.login input{width:260px;padding:12px;margin:8px;border:none;border-radius:6px;background:#222;color:white}
+.login button{padding:12px 40px;background:#f5c542;border:none;cursor:pointer;border-radius:6px}
+.login a{color:#f5c542;text-decoration:underline;cursor:pointer;margin-top:10px}
+
+.hero{height:80vh;background:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438') center/cover;display:flex;align-items:center}
+.hero-content{background:rgba(0,0,0,0.75);padding:30px;margin-left:40px;width:35%;border-radius:12px}
+section{padding:60px}
+h2{text-align:center;color:#f5c542}
+
+/* TURNOS */
+table{width:100%;border-collapse:collapse}
+td,th{border:1px solid #333;padding:12px;text-align:center}
+.disponible{background:green;cursor:pointer}
+.ocupado{background:red;cursor:pointer}
+
+/* VIDEOS */
+.slider{display:flex;align-items:center;gap:10px}
+.slider button{background:#f5c542;border:none;padding:10px;cursor:pointer}
+.slider-track{display:flex;overflow:hidden;width:100%}
+.slider-track video{width:220px;margin-right:10px;border-radius:10px}
+
+/* CURSOS */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{position:relative;cursor:pointer}
+.card img{width:100%;transition:0.5s}
+.card:hover img{opacity:0}
+.card .hover{position:absolute;top:0}
+.hidden{display:none}
+.curso-box{background:#1a1a1a;padding:20px;margin-top:20px;border-radius:10px}
+.boton{background:#25d366;padding:12px 20px;border-radius:6px;color:white;text-decoration:none;display:inline-block;margin-top:15px}
+
+/* FOOTER */
+footer{background:black;padding:40px}
+.footer-box{display:flex;gap:20px;flex-wrap:wrap}
+iframe{width:100%;height:220px;border:0;border-radius:10px}
+
+/* WHATSAPP FLOAT */
+.float-wsp{position:fixed;bottom:20px;right:20px;background:#25d366;padding:15px;border-radius:50%;font-size:20px}
+.float-wsp-left{position:fixed;bottom:20px;left:20px;background:#25d366;padding:15px;border-radius:50%;font-size:20px}
+
+</style>
+</head>
+<body>
+
+<div id="loginBox" class="login">
+<h1>Barberia Joel Farias</h1>
+<input id="user" placeholder="Usuario">
+<input id="pass" type="password" placeholder="Contraseña">
+<button onclick="login()">Entrar</button>
+<p id="msg"></p>
+<a onclick="register()">Registrarse</a>
+</div>
+
+<div id="app" class="hidden">
+<header>
+<div class="logo">Barberia Joel Farias</div>
+<div onclick="logout()">👤</div>
+</header>
+
+<section class="hero">
+<div class="hero-content">
+<h1>Barberia Joel Farias</h1>
+<h3>Sobre mí:</h3>
+<p>Tu descripción</p>
+<h3>Sobre la Barbería:</h3>
+<p>Descripción del local</p>
+</div>
+</section>
+
+<section>
+<h2>Turnos Disponibles</h2>
+<table id="tabla"></table>
+<h3>Mis turnos</h3>
+<div id="misTurnos"></div>
+</section>
+
+<section>
+<h2>Trabajos Realizados</h2>
+<div class="slider">
+<button onclick="mover(-1)">⬅</button>
+<div class="slider-track" id="track">
+<video src="corten.mp4" autoplay muted loop controls></video>
+<video src="corten1.mp4" autoplay muted loop controls></video>
+<video src="corten2.mp4" autoplay muted loop controls></video>
+<video src="corten3.mp4" autoplay muted loop controls></video>
+<video src="corten4.mp4" autoplay muted loop controls></video>
+<video src="corten5.mp4" autoplay muted loop controls></video>
+<video src="corten6.mp4" autoplay muted loop controls></video>
+</div>
+<button onclick="mover(1)">➡</button>
+</div>
+</section>
+
+<section>
+<h2>Cursos</h2>
+<div class="grid">
+<div class="card" onclick="toggleCurso()">
+<img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4">
+<img class="hover" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+<h3 style="position:absolute;bottom:10px;left:10px">Nivel 1</h3>
+</div>
+</div>
+
+<div id="cursoContenido" class="curso-box hidden">
+
+<h2>💈 Curso Nivel 1</h2>
+
+<p><b>📅 Fecha:</b> <span id="fechaCurso">(editar fecha)</span></p>
+
+<h3>📋 Diagnóstico para Clase de Barbería Nivel 1</h3>
+
+<h4>🔍 Análisis del Grupo</h4>
+<ul>
+<li><b>Nivel de experiencia previo:</b> Identificar si los estudiantes tienen conocimiento básico o son principiantes</li>
+<li><b>Expectativas del curso:</b> Conocer objetivos profesionales</li>
+<li><b>Motivación:</b> Entender por qué eligieron barbería</li>
+</ul>
+
+<h3>🎯 Objetivos del Curso</h3>
+<ul>
+<li>Dominar técnicas básicas de corte con tijera y máquina</li>
+<li>Comprender higiene y seguridad</li>
+<li>Aprender atención al cliente</li>
+<li>Tipos de cabello</li>
+<li>Diseño básico de barba</li>
+</ul>
+
+<h3>📚 Contenido Programático</h3>
+
+<h4>✂️ Introducción a la Barbería</h4>
+<ul>
+<li>Herramientas esenciales</li>
+<li>Higiene y esterilización</li>
+<li>Espacio de trabajo</li>
+</ul>
+
+<h4>🛠 Fundamentos Técnicos</h4>
+<ul>
+<li>Técnicas con tijera</li>
+<li>Manejo de máquina</li>
+<li>Degradado básico</li>
+</ul>
+
+<h4>💇 Cortes Clásicos</h4>
+<ul>
+<li>Corte clásico</li>
+<li>Fade básico</li>
+<li>Tijera sobre peine</li>
+<li>Perfilado</li>
+</ul>
+
+<h4>🗣 Atención al Cliente</h4>
+<ul>
+<li>Consulta inicial</li>
+<li>Comunicación efectiva</li>
+<li>Gestión de expectativas</li>
+<li>Fidelización</li>
+</ul>
+
+<h3>🧑‍🏫 Metodología de Enseñanza</h3>
+<ul>
+<li><b>Clases teóricas:</b> fundamentos</li>
+<li><b>Demostraciones:</b> en vivo</li>
+<li><b>Práctica:</b> supervisada</li>
+<li><b>Corrección:</b> personalizada</li>
+</ul>
+
+<h3>🧰 Recursos Necesarios</h3>
+<ul>
+<li>Kit de herramientas (se puede brindar)</li>
+<li>Modelos por alumno</li>
+<li>Material de higiene</li>
+<li>Libreta de apuntes</li>
+</ul>
+
+<h3>📊 Sistema de Evaluación</h3>
+<ul>
+<li>Evaluaciones prácticas</li>
+<li>Examen teórico</li>
+<li>Proyecto final</li>
+<li>80% asistencia mínima</li>
+</ul>
+
+<h3>⏱️ Duración</h3>
+<ul>
+<li>Total: 3-6 semanas</li>
+<li>Frecuencia: 1-2 clases por semana</li>
+<li>Duración por clase: 2-3 horas</li>
+</ul>
+
+<h3>⚠️ Consideraciones</h3>
+<ul>
+<li>Cupos reducidos (4-6 alumnos)</li>
+<li>Ambiente colaborativo</li>
+<li>Puntualidad y presentación</li>
+<li>Seguimiento virtual</li>
+</ul>
+
+<h3>💈 Certificación</h3>
+<p>Certificado de finalización Nivel 1</p>
+
+<h3>💲 Valor</h3>
+<p>$50.000 por clase</p>
+<p>Incluye libreta de apuntes</p>
+
+<a class="boton" href="https://wa.me/5492926495529" target="_blank">Anotarse al curso</a>
+
+</div>
+</section>
+
+<footer>
+<div class="footer-box">
+<div style="flex:1">
+<h3>Ubicación</h3>
+<iframe src="https://maps.app.goo.gl/vVeoRAAVGajVxruA8"></iframe>
+</div>
+</div>
+</footer>
+</div>
+
+<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">💬</a>
+
+<script>
+let currentUser=null
+
+function register(){
+let users=JSON.parse(localStorage.getItem("users"))||{}
+users[user.value]=pass.value
+localStorage.setItem("users",JSON.stringify(users))
+msg.innerText="Registrado ✔"
+}
+
+function login(){
+let users=JSON.parse(localStorage.getItem("users"))||{}
+if(users[user.value]===pass.value){
+currentUser=user.value
+loginBox.style.display="none"
+app.style.display="block"
+initTurnos()
+}else msg.innerText="Error"
+}
+
+function logout(){location.reload()}
+
+function initTurnos(){
+let tabla=document.getElementById("tabla")
+let turnos=JSON.parse(localStorage.getItem("turnos"))||{}
+let dias=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
+
+let tr=document.createElement("tr")
+dias.forEach(d=>{
+let th=document.createElement("th")
+th.innerText=d
+tr.appendChild(th)
+})
+tabla.appendChild(tr)
+
+for(let i=10;i<22;i++){
+let tr=document.createElement("tr")
+ dias.forEach((d,index)=>{
+ let td=document.createElement("td")
+
+ if(index<=2){
+ let hora=i+":00"
+ let key=d+"-"+hora
+
+ td.onclick=()=>{
+ if(turnos[key]){
+ delete turnos[key]
+ td.className="disponible"
+ td.innerText=hora
+ }else{
+ turnos[key]=currentUser
+ td.className="ocupado"
+ td.innerText=hora+"\n"+currentUser
+ }
+ localStorage.setItem("turnos",JSON.stringify(turnos))
+ mostrarMisTurnos()
+ }
+
+ if(turnos[key]){
+ td.className="ocupado"
+ td.innerText=hora+"\n"+turnos[key]
+ }else{
+ td.className="disponible"
+ td.innerText=hora
+ }
+ }else{
+ td.innerText="Acordar con el barbero"
+ }
+ tr.appendChild(td)
+ })
+ tabla.appendChild(tr)
+}
+mostrarMisTurnos()
+}
+
+function mostrarMisTurnos(){
+let turnos=JSON.parse(localStorage.getItem("turnos"))||{}
+misTurnos.innerHTML=""
+for(let t in turnos){
+if(turnos[t]===currentUser){
+let p=document.createElement("p")
+p.innerText=t
+misTurnos.appendChild(p)
+}
+}
+}
+
+function toggleCurso(){
+cursoContenido.classList.toggle("hidden")
+}
+
+let pos=0
+function mover(dir){
+pos+=dir*220
+track.style.transform="translateX("+pos+"px)"
+}
+</script>
+</body>
+</html>
