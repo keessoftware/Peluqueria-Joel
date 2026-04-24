@@ -70,29 +70,135 @@ header{
 display:flex;
 align-items:center;
 justify-content:space-between;
-flex-wrap:wrap; /* 🔥 clave */
-gap:10px;
-padding:10px 15px;
-background:rgba(0,0,0,0.9);
+padding:18px 40px;
+
+/* GLASS EFFECT */
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+
 position:sticky;
 top:0;
 z-index:1000;
-backdrop-filter:blur(8px);
+
+/* BORDE DORADO */
+border-bottom:1px solid rgba(245,197,66,0.4);
+
+/* SOMBRA SUAVE */
+box-shadow:0 5px 30px rgba(0,0,0,0.6);
 }
 
-.nav{
+/* ✨ BRILLO ANIMADO */
+header::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
 width:100%;
-justify-content:center;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(245,197,66,0.2),transparent);
+animation:shine 4s infinite;
 }
 
+@keyframes shine{
+0%{left:-100%}
+100%{left:100%}
+}
+
+/* LOGO */
 .logo{
-font-size:14px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-text span{
+font-size:12px;
+color:#c9a93d;
+letter-spacing:2px;
+}
+
+.logo-text strong{
+font-size:22px;
+color:white;
+letter-spacing:1px;
 }
 
 .logo-img{
-width:35px;
-height:35px;
+width:50px;
+height:50px;
+border-radius:50%;
+border:2px solid #f5c542;
+box-shadow:0 0 20px rgba(245,197,66,0.7);
+transition:0.3s;
 }
+
+.logo-img:hover{
+transform:scale(1.1);
+box-shadow:0 0 30px rgba(245,197,66,1);
+}
+
+/* NAV */
+.nav{
+display:flex;
+gap:35px;
+align-items:center;
+}
+
+.nav span{
+cursor:pointer;
+color:#f5c542;
+font-weight:600;
+letter-spacing:1px;
+display:flex;
+align-items:center;
+gap:6px;
+position:relative;
+transition:0.3s;
+}
+
+/* HOVER PRO */
+.nav span:hover{
+color:#fff;
+text-shadow:0 0 10px rgba(245,197,66,0.8);
+}
+
+/* LINEA ANIMADA */
+.nav span::after{
+content:"";
+position:absolute;
+bottom:-6px;
+left:0;
+width:0%;
+height:2px;
+background:linear-gradient(90deg,#f5c542,#fff,#f5c542);
+transition:0.4s;
+}
+
+.nav span:hover::after{
+width:100%;
+}
+
+/* USER BOX PRO */
+#userBox{
+border:1px solid rgba(245,197,66,0.5);
+padding:8px 18px;
+border-radius:25px;
+cursor:pointer;
+color:#f5c542;
+display:flex;
+align-items:center;
+gap:8px;
+transition:0.3s;
+background:rgba(255,255,255,0.02);
+}
+
+#userBox:hover{
+background:rgba(245,197,66,0.1);
+box-shadow:0 0 15px rgba(245,197,66,0.5);
+}
+
+.logo{color:#f5c542;font-weight:bold}
 header div:last-child{cursor:pointer}
 header div:last-child:hover{transform:scale(1.2)}
 
@@ -105,27 +211,29 @@ background:rgba(0,0,0,0.75);
 backdrop-filter:blur(10px);
 border:1px solid rgba(0,140,255,0.3);
 }
-
-@media(max-width:600px){
-
-.hero{
-justify-content:center;
-text-align:center;
-padding:20px 10px;
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+color:#f5c542;
+font-weight:bold;
 }
 
-.hero-content{
-max-width:100%;
-padding:15px;
+.logo-img{
+width:40px;
+height:40px;
+border-radius:50%;
+box-shadow:0 0 10px rgba(0,140,255,0.6);
+transition:0.3s;
 }
-
-}
-
 
 .logo-img:hover{
 transform:scale(1.1);
 }
-
+.nav{
+display:flex;
+gap:20px;
+}
 
 .nav span{
 cursor:pointer;
@@ -173,45 +281,19 @@ font-size:18px;
 margin-top:20px;
 border:1px solid #f5c542;
 }
-.slider{
-position:relative;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
 .slider-track{
 display:flex;
 overflow-x:auto;
 scroll-behavior:smooth;
 gap:10px;
-scroll-snap-type:x proximity;
-scroll-padding:10px;
-}
-
-/* ocultar scrollbar */
-.slider-track::-webkit-scrollbar{
-display:none;
+scroll-snap-type:x mandatory;
 }
 
 .slider-track video{
-width:140px;
+width:180px;
 border-radius:10px;
-flex-shrink:0;
-scroll-snap-align:center;
+scroll-snap-align:start;
 }
-.slider{position:relative;}.slider button{position:absolute;top:50%;transform:translateY(-50%);z-index:2;background:rgba(0,0,0,0.6);border:none;color:white;padding:8px;border-radius:50%;}.slider button:first-child{left:5px;}.slider button:last-child{right:5px;}
-
-
-.card h3{font-size:16px;}
-
-table{
-display:block;
-overflow-x:auto;
-white-space:nowrap;
-font-size:14px;
-}
-
 
 /* ocultar barra */
 .slider-track::-webkit-scrollbar{
@@ -234,12 +316,7 @@ td,th{border:1px solid #333;padding:10px;text-align:center;min-width:120px}
 /* VIDEOS SLIDER MOBILE FIX */
 .slider{display:flex;align-items:center;gap:10px}
 .slider-track{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:10px}
-.slider-track video{
-width:140px;
-border-radius:10px;
-flex-shrink:0; /* 🔥 ESTO LO ARREGLA */
-scroll-snap-align:start;
-}
+.slider-track video{width:180px;border-radius:10px}
 
 /* CURSOS RESPONSIVE */
 .grid{display:grid;grid-template-columns:1fr;gap:20px}
@@ -260,45 +337,23 @@ iframe{width:100%;height:200px;border:0;border-radius:10px}
 position:fixed;
 bottom:20px;
 left:20px;
-width:60px;
-height:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#25d366;
-border-radius:50%;
-z-index:9999;
-box-shadow:0 4px 15px rgba(0,0,0,0.5);
-transition:all 0.3s ease;
-overflow:hidden;
-}
 
-.float-wsp-left img{
-width:32px;   /* 🔥 tamaño perfecto */
-height:32px;
-object-fit:contain;
-display:block;
+background:#25d366;
+color:white;
+
+padding:16px;
+border-radius:50%;
+font-size:22px;
+
+z-index:9999; /* 👈 CLAVE */
+
+box-shadow:0 5px 20px rgba(0,0,0,0.5);
+transition:0.3s;
 }
 
 .float-wsp-left:hover{
 transform:scale(1.1);
-box-shadow:0 6px 20px rgba(0,0,0,0.6);
-}
-.float-wsp-left::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-border-radius:50%;
-background:#25d366;
-opacity:0.4;
-animation:onda 2s infinite;
-}
-
-@keyframes onda{
-0%{transform:scale(1); opacity:0.4;}
-70%{transform:scale(1.6); opacity:0;}
-100%{opacity:0;}
+box-shadow:0 0 20px #25d366;
 }
 /* DESKTOP */
 @media(min-width:768px){
@@ -309,46 +364,126 @@ table{display:table;overflow-x:unset;white-space:normal}
 .footer-box{flex-direction:row}
 }
 
-/* 📱 TABLET */
-@media(min-width:768px){
+/* 📱 MOBILE */
+@media(max-width:768px){
 
 header{
-flex-wrap:nowrap;
+padding:12px 15px;
+flex-wrap:wrap;
+gap:10px;
 }
 
+/* logo más chico */
+.logo-img{
+width:40px;
+height:40px;
+}
+
+.logo-text strong{
+font-size:16px;
+}
+
+.logo-text span{
+font-size:10px;
+}
+
+/* nav centrado abajo */
 .nav{
-width:auto;
+width:100%;
+justify-content:center;
+gap:20px;
+order:3;
+margin-top:5px;
 }
 
-.grid{
-grid-template-columns:repeat(2,1fr);
+.nav span{
+font-size:13px;
 }
 
-.slider-track video{
-width:200px;
+/* usuario más compacto */
+#userBox{
+padding:6px 12px;
+font-size:12px;
 }
 
 }
-
-/* 💻 PC */
-@media(min-width:1024px){
+@media(max-width:768px){
 
 .hero{
-justify-content:left;
-text-align:left;
+justify-content:center;
+text-align:center;
+padding:20px 10px;
 }
 
 .hero-content{
-margin-left:40px;
-max-width:500px;
+margin:0;
+width:100%;
+max-width:100%;
+padding:18px;
+}
+
+.hero-content h1{
+font-size:22px;
+}
+
+.hero-content h3{
+font-size:16px;
+}
+
+}
+@media(max-width:768px){
+
+table{
+display:block;
+overflow-x:auto;
+white-space:nowrap;
+}
+
+td,th{
+font-size:12px;
+padding:8px;
+min-width:90px;
+}
+
+}
+/* 📱 mobile */
+@media(max-width:768px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+
+/* 📲 tablet */
+@media(min-width:769px) and (max-width:1024px){
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+@media(max-width:768px){
+
+.float-wsp-left{
+bottom:15px;
+left:15px;
+padding:14px;
+font-size:18px;
+}
+
+}
+@media(min-width:769px) and (max-width:1024px){
+
+header{
+padding:15px 25px;
+}
+
+.hero-content{
+max-width:450px;
 }
 
 .slider-track video{
-width:240px;
+width:180px;
 }
 
 }
-
 </style>
 </head>
 <body>
@@ -364,17 +499,24 @@ width:240px;
 
 <div id="app" class="hidden">
 <header>
-<div class="logo">
-  Barberia Joel Farias
-  <img src="fotologo.webp" class="logo-img">
-</div>
-<div class="nav">
-<span onclick="irA('turnos')">Turnos</span>
-<span onclick="irA('cursos')">Cursos</span>
-</div>
-<div id="userBox" onclick="logout()">👤 <span id="userName"></span></div>
-</header>
+  <div class="logo">
+    <img src="fotologo.webp" class="logo-img">
 
+    <div class="logo-text">
+      <span>BARBERIA</span>
+      <strong>JOEL FARIAS</strong>
+    </div>
+  </div>
+
+ <div class="nav">
+  <span onclick="irA('turnos')">📅 TURNOS</span>
+  <span onclick="irA('cursos')">🎓 CURSOS</span>
+</div>
+
+  <div id="userBox" onclick="logout()">
+    👤 <span id="userName"></span>
+  </div>
+</header>
 <section class="hero">
 <div class="hero-content">
 <h1>Barberia Joel Farias</h1>
@@ -645,9 +787,7 @@ width:240px;
 </footer>
 </div>
 
-<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">
-  <img src="descarga.jpg" alt="WhatsApp">
-</a>
+<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">💬</a>
 </footer>
 </body>
 <script>
