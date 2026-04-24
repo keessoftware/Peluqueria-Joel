@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" href="fotologo.webp" alt="favicon">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barberia Joel Farias | Turnos y Cursos</title>
@@ -8,62 +9,344 @@
 <meta name="description" content="Reservá turnos online en Barberia Joel Farias. Cursos de barbería nivel 1, cortes profesionales y atención personalizada.">
 <meta name="keywords" content="barberia, turnos online, cursos barberia, fade, cortes modernos, argentina">
 <meta name="author" content="Joel Farias">
+
 <style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#0f0f0f;color:white}
-header{display:flex;justify-content:space-between;padding:15px 30px;background:#000}
-.logo{color:#f5c542;font-weight:bold}
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+color:white;
+
+/* 🔥 Fondo base oscuro */
+background:
+linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+url('https://images.unsplash.com/photo-1533577116850-9cc66cad8a9b');
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:
+radial-gradient(circle at 20% 30%, rgba(0,140,255,0.25), transparent 40%),
+radial-gradient(circle at 80% 60%, rgba(255,255,255,0.15), transparent 40%),
+radial-gradient(circle at 50% 80%, rgba(0,80,200,0.2), transparent 50%);
+
+filter:blur(40px);
+opacity:0.7;
+
+pointer-events:none;
+z-index:0;
+}
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background-image:url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+
+opacity:0.3;
+mix-blend-mode:overlay;
+
+pointer-events:none;
+z-index:0;
+}
+#app, .login{
+position:relative;
+z-index:1;
+}
+
+header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+flex-wrap:wrap; /* 🔥 clave */
+gap:10px;
+padding:10px 15px;
+background:rgba(0,0,0,0.9);
+position:sticky;
+top:0;
+z-index:1000;
+backdrop-filter:blur(8px);
+}
+
+.nav{
+width:100%;
+justify-content:center;
+}
+
+.logo{
+font-size:14px;
+}
+
+.logo-img{
+width:35px;
+height:35px;
+}
 header div:last-child{cursor:pointer}
 header div:last-child:hover{transform:scale(1.2)}
 
-.login{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#000,#1c1c1c)}
-.login input{width:260px;padding:12px;margin:8px;border:none;border-radius:6px;background:#222;color:white}
-.login button{padding:12px 40px;background:#f5c542;border:none;cursor:pointer;border-radius:6px}
+.login{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#000,#1c1c1c);padding:20px}
+.login input{width:100%;max-width:300px;padding:12px;margin:8px;border:none;border-radius:6px;background:#222;color:white}
+.login button{width:100%;max-width:300px;padding:12px;background:#f5c542;border:none;cursor:pointer;border-radius:6px}
 .login a{color:#f5c542;text-decoration:underline;cursor:pointer;margin-top:10px}
+.hero-content{
+background:rgba(0,0,0,0.75);
+backdrop-filter:blur(10px);
+border:1px solid rgba(0,140,255,0.3);
+}
 
-.hero{height:80vh;background:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438') center/cover;display:flex;align-items:center}
-.hero-content{background:rgba(0,0,0,0.75);padding:30px;margin-left:40px;width:35%;border-radius:12px}
-section{padding:60px}
+@media(max-width:600px){
+
+.hero{
+justify-content:center;
+text-align:center;
+padding:20px 10px;
+}
+
+.hero-content{
+max-width:100%;
+padding:15px;
+}
+
+}
+
+
+.logo-img:hover{
+transform:scale(1.1);
+}
+
+
+.nav span{
+cursor:pointer;
+color:#f5c542;
+font-weight:bold;
+}
+
+.nav span:hover{
+text-decoration:underline;
+}
+
+.curso-seccion{
+background:#111;
+padding:15px;
+margin-bottom:15px;
+border-radius:10px;
+border-left:4px solid #f5c542;
+}
+
+.curso-seccion h3{
+margin-top:0;
+color:#f5c542;
+}
+
+.curso-seccion h4{
+margin-bottom:5px;
+color:#ccc;
+}
+
+.curso-seccion ul{
+padding-left:18px;
+}
+
+.curso-seccion li{
+margin-bottom:6px;
+color:#ddd;
+}
+
+.curso-precio{
+background:#1f1f1f;
+padding:15px;
+border-radius:10px;
+text-align:center;
+font-size:18px;
+margin-top:20px;
+border:1px solid #f5c542;
+}
+.slider{
+position:relative;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.slider-track{
+display:flex;
+overflow-x:auto;
+scroll-behavior:smooth;
+gap:10px;
+scroll-snap-type:x proximity;
+scroll-padding:10px;
+}
+
+/* ocultar scrollbar */
+.slider-track::-webkit-scrollbar{
+display:none;
+}
+
+.slider-track video{
+width:140px;
+border-radius:10px;
+flex-shrink:0;
+scroll-snap-align:center;
+}
+.slider{position:relative;}.slider button{position:absolute;top:50%;transform:translateY(-50%);z-index:2;background:rgba(0,0,0,0.6);border:none;color:white;padding:8px;border-radius:50%;}.slider button:first-child{left:5px;}.slider button:last-child{right:5px;}
+
+
+.card h3{font-size:16px;}
+
+table{
+display:block;
+overflow-x:auto;
+white-space:nowrap;
+font-size:14px;
+}
+
+
+/* ocultar barra */
+.slider-track::-webkit-scrollbar{
+display:none;
+}
+
+/* HERO RESPONSIVE */
+.hero{min-height:80vh;height:auto;background:url('Fotofondo.png') center/cover no-repeat;display:flex;align-items:center;justify-content:left;padding:20px}
+.hero-content{background:rgba(0,0,0,0.8);padding:20px;width:100%;max-width:500px;border-radius:12px}
+
+section{padding:40px 15px}
 h2{text-align:center;color:#f5c542}
 
-/* TURNOS */
-table{width:100%;border-collapse:collapse}
-td,th{border:1px solid #333;padding:12px;text-align:center}
+/* TURNOS RESPONSIVE FIX */
+table{width:100%;border-collapse:collapse;display:block;overflow-x:auto;white-space:nowrap}
+td,th{border:1px solid #333;padding:10px;text-align:center;min-width:120px}
 .disponible{background:green;cursor:pointer}
 .ocupado{background:red;cursor:pointer}
 
-/* VIDEOS */
+/* VIDEOS SLIDER MOBILE FIX */
 .slider{display:flex;align-items:center;gap:10px}
-.slider button{background:#f5c542;border:none;padding:10px;cursor:pointer}
-.slider-track{display:flex;overflow:hidden;width:100%}
-.slider-track video{width:220px;margin-right:10px;border-radius:10px}
+.slider-track{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:10px}
+.slider-track video{
+width:140px;
+border-radius:10px;
+flex-shrink:0; /* 🔥 ESTO LO ARREGLA */
+scroll-snap-align:start;
+}
 
-/* CURSOS */
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+/* CURSOS RESPONSIVE */
+.grid{display:grid;grid-template-columns:1fr;gap:20px}
 .card{position:relative;cursor:pointer}
-.card img{width:100%;transition:0.5s}
-.card:hover img{opacity:0}
-.card .hover{position:absolute;top:0}
+.card img{width:100%;border-radius:10px}
+.card .hover{position:absolute;top:0;left:0}
 .hidden{display:none}
-.curso-box{background:#1a1a1a;padding:20px;margin-top:20px;border-radius:10px}
+.curso-box{background:#1a1a1a;padding:15px;margin-top:15px;border-radius:10px}
 .boton{background:#25d366;padding:12px 20px;border-radius:6px;color:white;text-decoration:none;display:inline-block;margin-top:15px}
 
-/* FOOTER */
-footer{background:black;padding:40px}
-.footer-box{display:flex;gap:20px;flex-wrap:wrap}
-iframe{width:100%;height:220px;border:0;border-radius:10px}
+/* FOOTER MOBILE */
+footer{background:black;padding:30px}
+.footer-box{display:flex;flex-direction:column;gap:20px}
+iframe{width:100%;height:200px;border:0;border-radius:10px}
 
-/* WHATSAPP FLOAT */
-.float-wsp{position:fixed;bottom:20px;right:20px;background:#25d366;padding:15px;border-radius:50%;font-size:20px}
-.float-wsp-left{position:fixed;bottom:20px;left:20px;background:#25d366;padding:15px;border-radius:50%;font-size:20px}
+/* WHATSAPP */
+.float-wsp-left{
+position:fixed;
+bottom:20px;
+left:20px;
+width:60px;
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#25d366;
+border-radius:50%;
+z-index:9999;
+box-shadow:0 4px 15px rgba(0,0,0,0.5);
+transition:all 0.3s ease;
+overflow:hidden;
+}
 
+.float-wsp-left img{
+width:32px;   /* 🔥 tamaño perfecto */
+height:32px;
+object-fit:contain;
+display:block;
+}
 
-/* RESPONSIVE PC */
+.float-wsp-left:hover{
+transform:scale(1.1);
+box-shadow:0 6px 20px rgba(0,0,0,0.6);
+}
+.float-wsp-left::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+border-radius:50%;
+background:#25d366;
+opacity:0.4;
+animation:onda 2s infinite;
+}
+
+@keyframes onda{
+0%{transform:scale(1); opacity:0.4;}
+70%{transform:scale(1.6); opacity:0;}
+100%{opacity:0;}
+}
+/* DESKTOP */
 @media(min-width:768px){
 .grid{grid-template-columns:repeat(2,1fr)}
 .hero-content{margin-left:40px}
 .slider-track video{width:220px}
-table{font-size:14px}
+table{display:table;overflow-x:unset;white-space:normal}
 .footer-box{flex-direction:row}
+}
+
+/* 📱 TABLET */
+@media(min-width:768px){
+
+header{
+flex-wrap:nowrap;
+}
+
+.nav{
+width:auto;
+}
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.slider-track video{
+width:200px;
+}
+
+}
+
+/* 💻 PC */
+@media(min-width:1024px){
+
+.hero{
+justify-content:left;
+text-align:left;
+}
+
+.hero-content{
+margin-left:40px;
+max-width:500px;
+}
+
+.slider-track video{
+width:240px;
+}
+
 }
 
 </style>
@@ -81,8 +364,15 @@ table{font-size:14px}
 
 <div id="app" class="hidden">
 <header>
-<div class="logo">Barberia Joel Farias</div>
-<div onclick="logout()">👤</div>
+<div class="logo">
+  Barberia Joel Farias
+  <img src="fotologo.webp" class="logo-img">
+</div>
+<div class="nav">
+<span onclick="irA('turnos')">Turnos</span>
+<span onclick="irA('cursos')">Cursos</span>
+</div>
+<div id="userBox" onclick="logout()">👤 <span id="userName"></span></div>
 </header>
 
 <section class="hero">
@@ -95,7 +385,7 @@ table{font-size:14px}
 </div>
 </section>
 
-<section>
+<section id="turnos">
 <h2>Turnos Disponibles</h2>
 <table id="tabla"></table>
 <h3>Mis turnos</h3>
@@ -119,57 +409,66 @@ table{font-size:14px}
 </div>
 </section>
 
-<section>
-<h2>Cursos</h2>
+<section id="cursos">
+<h2>Cursos </h2>
 <div class="grid">
-<div class="card" onclick="toggleCurso()">
-<img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4">
-<img class="hover" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9">
+
+<!-- NIVEL 1 -->
+<div class="card" onclick="toggleCurso('n1')">
+<img src="fotocurso.jpg">
 <h3 style="position:absolute;bottom:10px;left:10px">Nivel 1</h3>
 </div>
+
+<!-- NIVEL 2 -->
+<div class="card" onclick="toggleCurso('n2')">
+<img src="fotocurso2.png">
+<h3 style="position:absolute;bottom:10px;left:10px">Nivel 2</h3>
+</div>
+
 </div>
 
 <div id="cursoContenido" class="curso-box hidden">
 
 <h2>💈 Curso Nivel 1</h2>
 
-<p><b>📅 Fecha:</b> <span id="fechaCurso">(editar fecha)</span></p>
-
-<h3>📋 Diagnóstico para Clase de Barbería Nivel 1</h3>
-
-<h4>🔍 Análisis del Grupo</h4>
+<div class="curso-seccion">
+<h3>📋 Diagnóstico Inicial</h3>
 <ul>
-<li><b>Nivel de experiencia previo:</b> Identificar si los estudiantes tienen conocimiento básico o son principiantes</li>
-<li><b>Expectativas del curso:</b> Conocer objetivos profesionales</li>
-<li><b>Motivación:</b> Entender por qué eligieron barbería</li>
+<li><b>Nivel previo:</b> Evaluación de conocimientos básicos</li>
+<li><b>Expectativas:</b> Objetivos profesionales del alumno</li>
+<li><b>Motivación:</b> Interés en la barbería</li>
 </ul>
+</div>
 
-<h3>🎯 Objetivos del Curso</h3>
+<div class="curso-seccion">
+<h3>🎯 Objetivos</h3>
 <ul>
-<li>Dominar técnicas básicas de corte con tijera y máquina</li>
-<li>Comprender higiene y seguridad</li>
-<li>Aprender atención al cliente</li>
+<li>Técnicas básicas con tijera y máquina</li>
+<li>Higiene y seguridad profesional</li>
+<li>Atención al cliente</li>
 <li>Tipos de cabello</li>
 <li>Diseño básico de barba</li>
 </ul>
+</div>
 
-<h3>📚 Contenido Programático</h3>
+<div class="curso-seccion">
+<h3>📚 Contenido</h3>
 
-<h4>✂️ Introducción a la Barbería</h4>
+<h4>✂️ Introducción</h4>
 <ul>
-<li>Herramientas esenciales</li>
+<li>Herramientas y mantenimiento</li>
 <li>Higiene y esterilización</li>
 <li>Espacio de trabajo</li>
 </ul>
 
-<h4>🛠 Fundamentos Técnicos</h4>
+<h4>🛠️ Fundamentos Técnicos</h4>
 <ul>
-<li>Técnicas con tijera</li>
-<li>Manejo de máquina</li>
+<li>Tijera básica</li>
+<li>Máquina y peines guía</li>
 <li>Degradado básico</li>
 </ul>
 
-<h4>💇 Cortes Clásicos</h4>
+<h4>💇 Cortes</h4>
 <ul>
 <li>Corte clásico</li>
 <li>Fade básico</li>
@@ -177,61 +476,161 @@ table{font-size:14px}
 <li>Perfilado</li>
 </ul>
 
-<h4>🗣 Atención al Cliente</h4>
+<h4>🤝 Atención al Cliente</h4>
 <ul>
 <li>Consulta inicial</li>
-<li>Comunicación efectiva</li>
-<li>Gestión de expectativas</li>
+<li>Comunicación</li>
 <li>Fidelización</li>
 </ul>
+</div>
 
-<h3>🧑‍🏫 Metodología de Enseñanza</h3>
+<div class="curso-seccion">
+<h3>🎓 Metodología</h3>
 <ul>
-<li><b>Clases teóricas:</b> fundamentos</li>
-<li><b>Demostraciones:</b> en vivo</li>
-<li><b>Práctica:</b> supervisada</li>
-<li><b>Corrección:</b> personalizada</li>
+<li>Clases teóricas</li>
+<li>Demostraciones en vivo</li>
+<li>Práctica supervisada</li>
+<li>Corrección personalizada</li>
 </ul>
+</div>
 
-<h3>🧰 Recursos Necesarios</h3>
+<div class="curso-seccion">
+<h3>🧰 Recursos</h3>
 <ul>
-<li>Kit de herramientas (se puede brindar)</li>
-<li>Modelos por alumno</li>
+<li>Kit de herramientas (incluido si no tenés)</li>
+<li>Modelos reales</li>
 <li>Material de higiene</li>
 <li>Libreta de apuntes</li>
 </ul>
+</div>
 
-<h3>📊 Sistema de Evaluación</h3>
+<div class="curso-seccion">
+<h3>📊 Evaluación</h3>
 <ul>
-<li>Evaluaciones prácticas</li>
-<li>Examen teórico</li>
-<li>Proyecto final</li>
+<li>Prácticas con tiempo</li>
+<li>Exámenes teóricos</li>
+<li>Proyecto final en modelo real</li>
 <li>80% asistencia mínima</li>
 </ul>
+</div>
 
-<h3>⏱️ Duración</h3>
+<div class="curso-seccion">
+<h3>⏳ Duración</h3>
 <ul>
-<li>Total: 3-6 semanas</li>
-<li>Frecuencia: 1-2 clases por semana</li>
-<li>Duración por clase: 2-3 horas</li>
+<li>3 a 6 semanas</li>
+<li>1 a 2 clases por semana</li>
+<li>2 a 3 horas por clase</li>
 </ul>
+</div>
 
-<h3>⚠️ Consideraciones</h3>
+<div class="curso-seccion">
+<h3>⚠️ Importante</h3>
 <ul>
-<li>Cupos reducidos (4-6 alumnos)</li>
+<li>Cupos reducidos (4 a 6 alumnos)</li>
 <li>Ambiente colaborativo</li>
-<li>Puntualidad y presentación</li>
-<li>Seguimiento virtual</li>
+<li>Grupo de seguimiento</li>
 </ul>
+</div>
 
-<h3>💈 Certificación</h3>
+<div class="curso-seccion">
+<h3>📜 Certificación</h3>
 <p>Certificado de finalización Nivel 1</p>
+</div>
 
+<div class="curso-precio">
 <h3>💲 Valor</h3>
 <p>$50.000 por clase</p>
-<p>Incluye libreta de apuntes</p>
+</div>
 
-<a class="boton" href="https://wa.me/5492926495529" target="_blank">Anotarse al curso</a>
+<a class="boton" href="https://wa.me/5492926495529" target="_blank">
+📲 Inscribirme por WhatsApp
+</a>
+
+</div>
+
+<div id="cursoNivel2" class="curso-box hidden">
+
+<h2>💈 Curso Nivel 2 (Avanzado)</h2>
+
+<div class="curso-seccion">
+<h3>🚀 Continuación del Nivel 1</h3>
+<ul>
+<li>Perfeccionamiento de técnicas básicas</li>
+<li>Mayor precisión en degradados</li>
+<li>Mejor control de herramientas</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>🎯 Objetivos</h3>
+<ul>
+<li>Dominar fades intermedios y altos</li>
+<li>Lograr cortes más limpios y profesionales</li>
+<li>Desarrollar estilo propio</li>
+<li>Atención al cliente nivel profesional</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>✂️ Técnicas Avanzadas</h3>
+<ul>
+<li>Fade intermedio y alto</li>
+<li>Transiciones perfectas</li>
+<li>Técnica máquina avanzada</li>
+<li>Tijera sobre peine profesional</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>🎨 Diseño y Estilo</h3>
+<ul>
+<li>Líneas y diseños (hair design)</li>
+<li>Perfilado profesional</li>
+<li>Barba avanzada</li>
+<li>Texturas modernas</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>🤝 Cliente Pro</h3>
+<ul>
+<li>Asesoramiento de imagen</li>
+<li>Comunicación avanzada</li>
+<li>Fidelización de clientes</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>📊 Evaluación</h3>
+<ul>
+<li>Corte completo en modelo real</li>
+<li>Evaluación de precisión</li>
+<li>Velocidad de trabajo</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>⏳ Duración</h3>
+<ul>
+<li>4 a 8 semanas</li>
+<li>2 clases por semana</li>
+<li>2 a 3 horas por clase</li>
+</ul>
+</div>
+
+<div class="curso-seccion">
+<h3>📜 Certificación</h3>
+<p>Certificado Nivel 2 Profesional</p>
+</div>
+
+<div class="curso-precio">
+<h3>💲 Valor</h3>
+<p>$60.000 por clase</p>
+</div>
+
+<a class="boton" href="https://wa.me/5492926495529" target="_blank">
+📲 Inscribirme por WhatsApp
+</a>
 
 </div>
 </section>
@@ -240,14 +639,17 @@ table{font-size:14px}
 <div class="footer-box">
 <div style="flex:1">
 <h3>Ubicación</h3>
-<iframe src="https://maps.app.goo.gl/vVeoRAAVGajVxruA8"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d791.6033015990498!2d-61.925971330447!3d-37.474574398253935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95eb72e5ad14e4c9%3A0xa655bb14df18e97a!2sNamuncura%20801-839%2C%20B7540HHC%20Coronel%20Suarez%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1777035978103!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 </div>
 </footer>
 </div>
 
-<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">💬</a>
-
+<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">
+  <img src="descarga.jpg" alt="WhatsApp">
+</a>
+</footer>
+</body>
 <script>
 let currentUser=null
 
@@ -262,63 +664,66 @@ function login(){
 let users=JSON.parse(localStorage.getItem("users"))||{}
 if(users[user.value]===pass.value){
 currentUser=user.value
+userName.innerText = currentUser
 loginBox.style.display="none"
 app.style.display="block"
 initTurnos()
 }else msg.innerText="Error"
 }
 
+function irA(seccion){
+document.getElementById(seccion).scrollIntoView({
+behavior:"smooth"
+})
+}
+
 function logout(){location.reload()}
 
 function initTurnos(){
 let tabla=document.getElementById("tabla")
+tabla.innerHTML = ""
 let turnos=JSON.parse(localStorage.getItem("turnos"))||{}
 let dias=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
-
 let tr=document.createElement("tr")
-dias.forEach(d=>{
-let th=document.createElement("th")
-th.innerText=d
-tr.appendChild(th)
-})
+dias.forEach(d=>{let th=document.createElement("th");th.innerText=d;tr.appendChild(th)})
 tabla.appendChild(tr)
 
 for(let i=10;i<22;i++){
 let tr=document.createElement("tr")
- dias.forEach((d,index)=>{
- let td=document.createElement("td")
+dias.forEach((d,index)=>{
+let td=document.createElement("td")
+let hora=i+":00"
+let key=d+"-"+hora
 
- if(index<=2){
- let hora=i+":00"
- let key=d+"-"+hora
+if(index<=2){
+if(turnos[key]){td.className="ocupado";td.innerText=hora+"\n"+turnos[key]}
+else{td.className="disponible";td.innerText=hora}
 
- td.onclick=()=>{
- if(turnos[key]){
- delete turnos[key]
- td.className="disponible"
- td.innerText=hora
- }else{
- turnos[key]=currentUser
- td.className="ocupado"
- td.innerText=hora+"\n"+currentUser
- }
- localStorage.setItem("turnos",JSON.stringify(turnos))
- mostrarMisTurnos()
- }
+td.onclick = () => {
 
- if(turnos[key]){
- td.className="ocupado"
- td.innerText=hora+"\n"+turnos[key]
- }else{
- td.className="disponible"
- td.innerText=hora
- }
- }else{
- td.innerText="Acordar con el barbero"
- }
- tr.appendChild(td)
- })
- tabla.appendChild(tr)
+if(turnos[key] && turnos[key] !== currentUser){
+alert("❌ Este turno ya está ocupado")
+return
+}
+
+if(turnos[key] === currentUser){
+delete turnos[key]
+alert("🗑️ Turno cancelado")
+}else{
+turnos[key] = currentUser
+alert("✅ Turno reservado")
+}
+
+localStorage.setItem("turnos", JSON.stringify(turnos))
+
+initTurnos()
+}
+}else{
+td.innerText="Acordar con el barbero"
+}
+tr.appendChild(td)
+})
+tabla.appendChild(tr)
 }
 mostrarMisTurnos()
 }
@@ -326,23 +731,45 @@ mostrarMisTurnos()
 function mostrarMisTurnos(){
 let turnos=JSON.parse(localStorage.getItem("turnos"))||{}
 misTurnos.innerHTML=""
-for(let t in turnos){
-if(turnos[t]===currentUser){
-let p=document.createElement("p")
-p.innerText=t
-misTurnos.appendChild(p)
-}
-}
+for(let t in turnos){if(turnos[t]===currentUser){let p=document.createElement("p");p.innerText=t;misTurnos.appendChild(p)}}
 }
 
-function toggleCurso(){
-cursoContenido.classList.toggle("hidden")
+function toggleCurso(nivel){
+
+let curso1 = document.getElementById("cursoContenido")
+let curso2 = document.getElementById("cursoNivel2")
+
+// SI YA ESTÁ ABIERTO → lo cierro
+if(nivel === "n1" && !curso1.classList.contains("hidden")){
+curso1.classList.add("hidden")
+return
 }
 
-let pos=0
+if(nivel === "n2" && !curso2.classList.contains("hidden")){
+curso2.classList.add("hidden")
+return
+}
+
+// SI NO → cierro ambos y abro el que corresponde
+curso1.classList.add("hidden")
+curso2.classList.add("hidden")
+
+if(nivel === "n1"){
+curso1.classList.remove("hidden")
+}
+
+if(nivel === "n2"){
+curso2.classList.remove("hidden")
+}
+
+}
 function mover(dir){
-pos+=dir*220
-track.style.transform="translateX("+pos+"px)"
+let track = document.getElementById("track")
+
+track.scrollBy({
+left: dir * 220,
+behavior: "smooth"
+})
 }
 </script>
 </body>
