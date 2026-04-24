@@ -23,7 +23,7 @@ url('https://images.unsplash.com/photo-1533577116850-9cc66cad8a9b');
 
 background-size:cover;
 background-position:center;
-background-attachment:fixed;
+background-attachment:scroll;
 }
 
 body::before{
@@ -484,6 +484,52 @@ width:180px;
 }
 
 }
+
+/* 🚀 OPTIMIZACION MOBILE REAL */
+@media(max-width:768px){
+
+body{
+background-attachment:scroll; /* ❌ saco fixed */
+}
+
+/* reduzco efectos pesados */
+body::before{
+filter:blur(20px);
+opacity:0.4;
+}
+
+/* saco animaciones pesadas */
+header::after{
+animation:none;
+}
+
+/* menos sombras */
+header{
+box-shadow:0 3px 10px rgba(0,0,0,0.4);
+}
+
+/* glass más liviano */
+.hero-content{
+backdrop-filter:blur(6px);
+}
+
+/* videos más livianos */
+.slider-track video{
+width:150px;
+}
+}
+*{
+-webkit-tap-highlight-color: transparent;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+/* GPU optimization */
+.hero, header, .card, .slider-track{
+will-change: transform;
+}
 </style>
 </head>
 <body>
@@ -539,13 +585,13 @@ width:180px;
 <div class="slider">
 <button onclick="mover(-1)">⬅</button>
 <div class="slider-track" id="track">
-<video src="corten.mp4" autoplay muted loop controls></video>
-<video src="corten1.mp4" autoplay muted loop controls></video>
-<video src="corten2.mp4" autoplay muted loop controls></video>
-<video src="corten3.mp4" autoplay muted loop controls></video>
-<video src="corten4.mp4" autoplay muted loop controls></video>
-<video src="corten5.mp4" autoplay muted loop controls></video>
-<video src="corten6.mp4" autoplay muted loop controls></video>
+<video src="corten.mp4" controls preload="none" loading="lazy"></video>
+<video src="corten1.mp4" controls preload="none" loading="lazy"></video>
+<video src="corten2.mp4" controls preload="none" loading="lazy"></video>
+<video src="corten3.mp4" controls preload="none" loading="lazy"></video>
+<video src="corten4.mp4" controls preload="none" loading="lazy"></video>
+<video src="corten5.mp4" controls preload="none" loading="lazy"></video>
+<video src="corten6.mp4" controls preload="none" loading="lazy "></video>
 </div>
 <button onclick="mover(1)">➡</button>
 </div>
@@ -787,7 +833,9 @@ width:180px;
 </footer>
 </div>
 
-<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">💬</a>
+<a class="float-wsp-left" href="https://wa.me/5492926495529" target="_blank">
+  <img src="descarga.jpg" width="24" height="24" alt="WhatsApp">
+</a>
 </footer>
 </body>
 <script>
