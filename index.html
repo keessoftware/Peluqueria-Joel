@@ -976,21 +976,14 @@ tabla.appendChild(trHead)
 
 // horarios cada 40 min
 let horarios = []
-let hora = 10
-let minuto = 0
+let inicio = 10 * 60   // 10:00 en minutos
+let fin = 21 * 60      // 21:00 en minutos
 
-while(hora < 21 || (hora === 21 && minuto === 0)){
-  let h = hora.toString().padStart(2,"0")
-  let m = minuto.toString().padStart(2,"0")
+for(let t = inicio; t < fin; t += 40){
+  let h = Math.floor(t / 60).toString().padStart(2,"0")
+  let m = (t % 60).toString().padStart(2,"0")
   horarios.push(h + ":" + m)
-
-  minuto += 40
-  if(minuto >= 60){
-    minuto -= 60
-    hora++
-  }
 }
-
 // crear tabla
 horarios.forEach(hora => {
   let tr = document.createElement("tr")
