@@ -964,54 +964,94 @@ let tabla=document.getElementById("tabla")
 tabla.innerHTML = ""
 let turnos=JSON.parse(localStorage.getItem("turnos"))||{}
 let dias=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
-let tr=document.createElement("tr")
-dias.forEach(d=>{let th=document.createElement("th");th.innerText=d;tr.appendChild(th)})
-tabla.appendChild(tr)
 
-for(let i=10;i<22;i++){
-let tr=document.createElement("tr")
-dias.forEach((d,index)=>{
-let td=document.createElement("td")
-let hora=i+":00"
-let key=d+"-"+hora
-
-if(index<=2){
-if(turnos[key]){td.className="ocupado";td.innerText=hora+"\n"+turnos[key]}
-else{td.className="disponible";td.innerText=hora}
-
-td.onclick = () => {
-
-if(turnos[key] && turnos[key] !== currentUser){
-alert("❌ Este turno ya está ocupado")
-return
-}
-
-if(turnos[key] === currentUser){
-delete turnos[key]
-alert("🗑️ Turno cancelado")
-}else{
-turnos[key] = currentUser
-alert("✅ Turno reservado")
-}
-
-localStorage.setItem("turnos", JSON.stringify(turnos))
-
-initTurnos()
-}
-}else{
-td.innerText="Acordar con el barbero"
-}
-tr.appendChild(td)
+// encabezado
+let trHead=document.createElement("tr")
+dias.forEach(d=>{
+  let th=document.createElement("th")
+  th.innerText=d
+  trHead.appendChild(th)
 })
-tabla.appendChild(tr)
+tabla.appendChild(trHead)
+
+// horarios cada 40 min
+let horarios = []
+let hora = 10
+let minuto = 0
+
+while(hora < 21 || (hora === 21 && minuto === 0)){
+  let h = hora.toString().padStart(2,"0")
+  let m = minuto.toString().padStart(2,"0")
+  horarios.push(h + ":" + m)
+
+  minuto += 40
+  if(minuto >= 60){
+    minuto -= 60
+    hora++
+  }
 }
+
+// crear tabla
+horarios.forEach(hora => {
+  let tr = document.createElement("tr")
+
+  dias.forEach((d,index)=>{
+    let td=document.createElement("td")
+    let key=d+"-"+hora
+
+    // lunes a miércoles reservables
+    if(index <= 2){
+
+      if(turnos[key]){
+        td.className="ocupado"
+        td.innerText=hora+"\n"+turnos[key]
+      }else{
+        td.className="disponible"
+        td.innerText=hora
+      }
+
+      td.onclick = () => {
+
+        if(turnos[key] && turnos[key] !== currentUser){
+          alert("❌ Este turno ya está ocupado")
+          return
+        }
+
+        if(turnos[key] === currentUser){
+          delete turnos[key]
+          alert("🗑️ Turno cancelado")
+        }else{
+          turnos[key] = currentUser
+          alert("✅ Turno reservado")
+        }
+
+        localStorage.setItem("turnos", JSON.stringify(turnos))
+        initTurnos()
+      }
+
+    }else{
+      td.innerText="Acordar con el barbero"
+    }
+
+    tr.appendChild(td)
+  })
+
+  tabla.appendChild(tr)
+})
+
 mostrarMisTurnos()
 }
 
 function mostrarMisTurnos(){
 let turnos=JSON.parse(localStorage.getItem("turnos"))||{}
 misTurnos.innerHTML=""
-for(let t in turnos){if(turnos[t]===currentUser){let p=document.createElement("p");p.innerText=t;misTurnos.appendChild(p)}}
+for(let t in turnos){
+if(turnos[t]===currentUser){
+let p=document.createElement("p")
+p.innerText=t
+misTurnos.appendChild(p)
+}
+}
 }
 
 function toggleCurso(nivel){
@@ -1019,7 +1059,6 @@ function toggleCurso(nivel){
 let curso1 = document.getElementById("cursoContenido")
 let curso2 = document.getElementById("cursoNivel2")
 
-// SI YA ESTÁ ABIERTO → lo cierro
 if(nivel === "n1" && !curso1.classList.contains("hidden")){
 curso1.classList.add("hidden")
 return
@@ -1030,7 +1069,6 @@ curso2.classList.add("hidden")
 return
 }
 
-// SI NO → cierro ambos y abro el que corresponde
 curso1.classList.add("hidden")
 curso2.classList.add("hidden")
 
@@ -1041,8 +1079,8 @@ curso1.classList.remove("hidden")
 if(nivel === "n2"){
 curso2.classList.remove("hidden")
 }
-
 }
+
 function mover(dir){
 let track = document.getElementById("track")
 
@@ -1052,6 +1090,7 @@ behavior: "smooth"
 })
 }
 
+// animaciones
 const observer = new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
@@ -1064,6 +1103,8 @@ document.querySelectorAll("section, .card, .hero-content").forEach(el=>{
 el.classList.add("fade-in")
 observer.observe(el)
 })
+
+// efecto glow cursor
 const glow = document.createElement("div")
 glow.classList.add("cursor-glow")
 document.body.appendChild(glow)
