@@ -631,12 +631,15 @@ will-change: transform;
 @media(max-width:768px){
 
 .hero{
-  padding-top:50px; /* 👈 lo baja un poco */
+  display:flex;
+  justify-content:flex-start; /* 👈 lo pega a la izquierda */
+  align-items:flex-start;     /* 👈 lo mantiene arriba */
+  padding:120px 40px;
 }
 
-.hero-content{
-  max-width:340px; /* 👈 apenas más angosto (antes era ~100%) */
-  margin-left:10px; /* 👈 lo mantiene alineado a la izquierda */
+  .hero-content{
+  max-width:50%;   
+  margin-left:10px; 
 }
 
 }
