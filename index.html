@@ -627,6 +627,19 @@ scroll-behavior:smooth;
 .hero, header, .card, .slider-track{
 will-change: transform;
 }
+
+@media(max-width:768px){
+
+.hero{
+  padding-top:50px; /* 👈 lo baja un poco */
+}
+
+.hero-content{
+  max-width:340px; /* 👈 apenas más angosto (antes era ~100%) */
+  margin-left:10px; /* 👈 lo mantiene alineado a la izquierda */
+}
+
+}
 </style>
 </head>
 <body>
